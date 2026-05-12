@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "notion": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic-ai/mcp-server-notion"
+      ],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}"
+      }
+    },
+    "google-analytics": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-google-analytics"
+      ],
+      "env": {
+        "GA_CLIENT_ID": "${GMAIL_CLIENT_ID}",
+        "GA_CLIENT_SECRET": "${GMAIL_CLIENT_SECRET}"
+      }
+    }
+  }
+}

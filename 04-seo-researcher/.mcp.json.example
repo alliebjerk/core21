@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "google-search-console": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-google-search-console"
+      ],
+      "env": {
+        "GSC_CLIENT_ID": "${GMAIL_CLIENT_ID}",
+        "GSC_CLIENT_SECRET": "${GMAIL_CLIENT_SECRET}"
+      }
+    },
+    "seo-tool": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-ahrefs"
+      ],
+      "env": {
+        "AHREFS_API_KEY": "${AHREFS_API_KEY}"
+      }
+    }
+  }
+}

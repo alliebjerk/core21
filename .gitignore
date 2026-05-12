@@ -1,0 +1,17 @@
+# Credentials — never push these
+.env
+.mcp.json
+
+# Archived output — keep repo size manageable
+output/archive/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

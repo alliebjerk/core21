@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "crm": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-crm"
+      ],
+      "env": {
+        "CRM_API_KEY": "${CRM_API_KEY}"
+      }
+    },
+    "google-drive": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-google-drive"
+      ],
+      "env": {
+        "GDRIVE_CLIENT_ID": "${GMAIL_CLIENT_ID}",
+        "GDRIVE_CLIENT_SECRET": "${GMAIL_CLIENT_SECRET}"
+      }
+    }
+  }
+}
