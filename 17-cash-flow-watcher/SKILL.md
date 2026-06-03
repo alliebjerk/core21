@@ -1,34 +1,39 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Cash Flow Watcher — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Cash Flow Watcher guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: Weekly, Monday 7am -->
+Weekly, Monday at 7am CT.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../business.md` — check for any major upcoming expenses or launches
+2. Read `memory.md` — check the current safe-cash threshold and recurring expense patterns
+3. Pull current cash position from QuickBooks (checking/operating account balance)
+4. Pull Stripe expected payouts for the next 14 days
+5. List known upcoming expenses for the next 60 days:
+   - Recurring software subscriptions (GHL, Notion, Buffer, QuickBooks, etc.)
+   - Contractor payments (weekly or monthly)
+   - Any confirmed launch-related ad spend
+   - Tax payments if approaching (quarterly)
+6. Build the 60-day cash flow projection:
+   - Week-by-week: starting balance + expected inflows − expected outflows = ending balance
+   - Flag any week where ending balance is projected below the threshold
+7. Save as `output/[YYYY-MM-DD]-cash-flow.md`
+8. If any week is flagged, post a brief alert to Slack #finance (no dollar amounts — "cash flow alert for week of [date]")
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- QuickBooks (current cash position, expense schedule)
+- Stripe (payout schedule)
+- `../business.md` (upcoming launches, major expenses)
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-cash-flow.md`
+Sections: current position summary, 60-day projection table, flagged weeks, recommended review.
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If QuickBooks balance is unavailable, produce a partial report from Stripe data only and note the gap
+- If a major expense appears without a corresponding revenue event, flag immediately — don't wait for the weekly cycle
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

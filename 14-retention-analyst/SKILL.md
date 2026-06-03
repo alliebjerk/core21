@@ -1,34 +1,47 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Retention Analyst — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Retention Analyst guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: Weekly, Monday 8am -->
+Weekly, Monday at 8am CT.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../business.md` — confirm active membership tiers
+2. Read `memory.md`
+3. Pull member activity data from GHL for the past 30 days:
+   - Last login date (if tracked)
+   - Email open/click activity
+   - Community participation
+   - Support inquiries about pausing or canceling
+4. Pull Stripe data:
+   - Payment failures in the past 7 days
+   - Cancellations initiated
+   - Downgrades (tier changes)
+5. Score each member against at-risk signals:
+   - No login in 14+ days: +1
+   - No email engagement in 30+ days: +1
+   - Unresolved payment failure: +2
+   - Cancellation initiated: +3
+   - Support inquiry about pausing/downgrading: +2
+6. Flag any member with 3+ risk points
+7. Recommend action:
+   - 3-4 points: personal email from the CS team
+   - 5+ points: escalate to Allie or CS lead for direct outreach
+8. Save as `output/[YYYY-MM-DD]-retention-report.md`
+9. Update `memory.md` with new at-risk patterns
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- GoHighLevel (member activity, tags)
+- Stripe (payment status, cancellations)
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-retention-report.md`
+Sections: summary metrics, at-risk member list (IDs only), recommended actions, trend notes.
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If Stripe data is unavailable, produce the report from GHL data only and note the gap
+- If a member ID appears in both a cancellation and a new purchase in the same week, flag as a possible tier change — not churn
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

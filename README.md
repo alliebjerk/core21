@@ -10,7 +10,8 @@ Twenty-one AI agents across six departments, plus an Onboarding Agent to get you
 2. Clone your fork to your computer
 3. Open your Notion workspace (link provided with your purchase)
 4. Follow the Setup Guide in Notion
-5. Run the Onboarding Agent first — it fills in your voice.md and business.md and recommends your first three agents
+5. Every file is pre-filled with a worked example from a real business. Replace the example content with your own business specifics as you install each agent. (Start with voice.md and business.md at the root — every agent reads those.)
+6. Run the Onboarding Agent first — it fills in your voice.md and business.md and recommends your first three agents
 
 ## What's Inside
 

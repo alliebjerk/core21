@@ -1,34 +1,42 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Budget and Forecast — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Budget and Forecast guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: Monthly, 1st at 7am -->
+Monthly, 1st of the month at 7am CT.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../business.md` — check current priorities and any planned launches for the next 90 days
+2. Read `memory.md`
+3. Pull last month's actuals from QuickBooks:
+   - Total revenue by category (product sales, membership MRR, challenge, other)
+   - Total expenses by category (software, contractor, advertising, other)
+   - Net
+4. Compare actuals to the budget in Google Sheets — calculate variance per category
+5. Draft the budget vs. actual report:
+   - Summary table (category | budget | actual | variance %)
+   - Flag categories with >20% variance
+   - 3-bullet narrative: what came in over, what came in under, the biggest variance driver
+6. Draft the 90-day forecast:
+   - Project MRR from current membership count and average retention
+   - Add confirmed launch revenue from business.md
+   - Add seasonal patterns from memory.md
+   - Express as a range, not a point estimate
+7. Save as `output/[YYYY-MM-DD]-budget-forecast.md`
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- QuickBooks (last month actuals)
+- Google Sheets (budget model)
+- `../business.md` (planned launches, current priorities)
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-budget-forecast.md`
+Sections: last month summary, budget vs. actual table, variance flags, 90-day forecast.
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If QuickBooks data is incomplete, produce the report with a note about the data gap and estimated actuals
+- If the Google Sheets budget hasn't been updated for the current month, flag — do not forecast against a stale budget
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

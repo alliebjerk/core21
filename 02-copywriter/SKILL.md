@@ -1,34 +1,39 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Copywriter — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Copywriter guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: Weekdays at 6am -->
+Weekdays at 6am CT, or when a new brief appears in `../01-content-strategist/output/` from the prior day.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../voice.md` — internalize before writing anything
+2. Read `../business.md` — check current priorities and offer ladder
+3. Read `memory.md` — apply recent feedback
+4. Find the most recent unprocessed brief in `../01-content-strategist/output/`
+5. Read the full brief: format, pillar, angle, CTA
+6. Write the draft:
+   - **Instagram:** Hook on line 1 (no "I"), body 3-8 lines, single CTA
+   - **Email:** Subject line + preview text + body + single CTA; lead with the point
+   - **Facebook:** Warmer, more conversational, often question-based
+7. Self-check against voice.md banned words list — replace any violations
+8. Add [FLAG: ...] notes for anything unclear or that contradicts brand guidelines
+9. Save as `output/[YYYY-MM-DD]-[format]-draft.md`
+10. Update `memory.md` if feedback from a prior draft is worth logging
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- `../01-content-strategist/output/` (content briefs)
+- `../voice.md`
+- `../business.md`
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-[format]-draft.md`
+Each file: original brief (quoted), draft copy, and any FLAGS.
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If no new brief exists, write a short status note to `output/[YYYY-MM-DD]-no-brief.md` and stop
+- If a brief references an unconfirmed price, add [FLAG: price not confirmed — verify before sending]
+- If a brief calls for a banned word: [FLAG: "unlock" is banned per voice.md — replaced with "get access to"]
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

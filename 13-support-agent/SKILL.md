@@ -1,34 +1,40 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Support Agent — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Support Agent guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: Hourly during business hours -->
+Hourly during business hours (9am–5pm CT, Monday–Friday).
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../business.md` — confirm current offer names, tier names, any known issues
+2. Read `memory.md` — check for recurring issues or updated response patterns
+3. Check Gmail support inbox and GHL conversations for new inquiries in the last hour
+4. For each new inquiry:
+   a. Categorize: access issue / billing / content question / refund / feedback / other
+   b. Look up the member record in GHL — confirm tier and purchase history
+   c. Draft a response:
+      - Open with their first name
+      - Address their specific question — not a generic response
+      - Access issue: confirm what they should have and what to check first
+      - Billing question: confirm what the record shows and what the next step is
+      - Refund request: acknowledge, do not promise, flag for ops
+      - Close with one clear next step
+   d. Save draft as `output/[YYYY-MM-DD]-support-[inquiry-id].md`
+   e. Flag any inquiry needing human review
+5. Update `memory.md` if a new pattern or recurring issue appears
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- Gmail (support inbox)
+- GoHighLevel (member records, conversation history)
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-support-[inquiry-id].md`
+Each file: inquiry summary, category, draft response, and any flags.
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If GHL member record can't be found, draft an acknowledgment only and flag for manual lookup
+- If the inquiry is time-sensitive (can't access just-purchased content), flag as URGENT to Slack #support
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

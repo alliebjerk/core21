@@ -1,34 +1,45 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Bookkeeper — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Bookkeeper guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: Weekly, Friday 6am -->
+Weekly, Friday at 6am CT.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../business.md` — confirm current offer names and revenue categories
+2. Read `memory.md` — check for categorization rules and recurring patterns
+3. Open QuickBooks — review all uncategorized transactions from the past 7 days
+4. For each transaction:
+   - Match to a Stripe payout or other source
+   - Categorize to the correct account:
+     - Tiny Offer product sales → Product Revenue
+     - Self-Made membership payments → Recurring Revenue
+     - Refunds → Refund / Contra-Revenue
+     - Ad spend (when running) → Advertising Expense
+     - Tool subscriptions (GHL, Notion, Buffer, etc.) → Software Expense
+     - Team payments → Contract Labor or Payroll (confirm with accountant)
+   - Flag anything that doesn't fit a known category
+5. Reconcile Stripe payouts to QuickBooks bank deposits:
+   - Every Stripe payout should appear as a bank deposit
+   - Flag any payout without a matching deposit, or vice versa
+6. Flag anomalies:
+   - Transactions more than 50% above/below weekly average
+   - Refunds with no corresponding sale
+   - Duplicate charges
+7. Save as `output/[YYYY-MM-DD]-bookkeeping-report.md`
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- QuickBooks (transaction data)
+- Stripe (payout history)
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-bookkeeping-report.md`
+Sections: transactions categorized, reconciliation status, flags, open questions for the accountant.
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If QuickBooks sync from Stripe failed, note the gap — do not manually enter data; flag for the accountant
+- If a transaction category is ambiguous, leave uncategorized and add [FLAG: need accountant guidance]
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

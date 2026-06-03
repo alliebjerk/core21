@@ -1,34 +1,41 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # SOP Writer — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the SOP Writer guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: On-demand -->
+On-demand — triggered by a Notion task tagged `needs-sop` or a manual request from ops.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../voice.md` and `../business.md`
+2. Read `memory.md`
+3. Locate the raw input:
+   - Notion task body (simple processes)
+   - Google Drive document (longer notes or transcripts)
+4. Read the raw input fully before writing anything
+5. Draft the SOP:
+   a. Title (action-based: "How to Onboard a New Self-Made Member")
+   b. Purpose (1-2 sentences)
+   c. Trigger (what starts this process)
+   d. Owner (person or role)
+   e. Steps (numbered, sequential, one action each)
+   f. Decision points (if/then branches, clearly labeled)
+   g. What "done" looks like
+   h. Related documents or templates (link to Notion pages if applicable)
+6. Flag unclear or missing information with [FLAG: ...]
+7. Save draft to `output/[YYYY-MM-DD]-sop-[name].md`
+8. Ops team moves approved SOPs to the Notion SOP library
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- Notion (triggering task, raw notes)
+- Google Drive (transcripts, longer notes)
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-sop-[process-name].md`
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If the raw input is too vague, produce an outline with [FLAG: need detail] markers rather than guessing
+- If the process involves a tool not in business.md, flag for ops to confirm
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

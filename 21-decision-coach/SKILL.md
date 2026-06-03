@@ -1,34 +1,40 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Decision Coach — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Decision Coach guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: On-demand -->
+On-demand — Allie initiates with a decision she's working through.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../voice.md` and `../business.md`
+2. Read `memory.md`
+3. Read Allie's input:
+   - What decision is being made
+   - What the options are (or surface them if she hasn't identified them)
+   - Any constraints (budget, timeline, team capacity)
+   - Any criteria she's mentioned as important
+4. Structure the decision:
+   a. **The decision, stated precisely** — one sentence
+   b. **The options** — all viable options, including "do nothing" if relevant
+   c. **What matters** (criteria) — what does a good decision optimize for?
+   d. **Option scoring** — for each option, assess against each criterion
+   e. **The tradeoffs** — what are we giving up with each option?
+   f. **What we don't know** — uncertainty that should influence the decision
+   g. **Recommendation** — which option scores best and why
+   h. **What would change the recommendation** — if X happened, we'd choose differently
+5. Save as `output/[YYYY-MM-DD]-decision-[topic].md`
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- Allie's input (the decision, options, context)
+- `../business.md`
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-decision-[topic].md`
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If the options Allie presents aren't mutually exclusive, clarify before proceeding — a decision between two non-exclusive options is a resource allocation question, not a choice
+- If there's a clear dominant option, say so directly — don't manufacture false balance
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

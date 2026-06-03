@@ -1,34 +1,42 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Lead Qualifier — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Lead Qualifier guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: Hourly during business hours -->
+Hourly during business hours (9am–5pm CT, Monday–Friday).
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../business.md` — confirm current ICP and active offers
+2. Read `memory.md` — apply updated scoring signals
+3. Open GoHighLevel — filter pipeline for contacts added in the last hour
+4. For each new contact:
+   a. Review all available data: source, opt-in responses, tags, notes
+   b. Score against ICP criteria (0-10 scale):
+      - Describes themselves as coach, consultant, or course creator: +2
+      - Mentions existing revenue or clients: +2
+      - References Tiny Offer, Self-Made, or Allie by name: +2
+      - Expresses frustration with manual/1:1 income: +1
+      - Asks about pricing or membership specifically: +1
+      - Red flags (brand new, no offer yet, looking for done-for-you): -2 each
+   c. Apply GHL tag: `lead-hot` (8+), `lead-warm` (5-7), `lead-nurture` (below 5)
+5. For hot leads (8+): post to Slack #sales with contact ID, score, and reason
+6. For warm leads: confirm enrollment in the nurture email sequence in GHL
+7. Log all scored leads in `output/[YYYY-MM-DD]-lead-log.md`
+8. Update `memory.md` with new patterns in lead quality
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- GoHighLevel CRM
+- `../business.md` (ICP, active offers)
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-lead-log.md`
+Each entry: contact ID (no real names), score, tags applied, routing action.
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If GHL is unavailable, log the downtime and process retroactively when access is restored
+- If a lead's data is incomplete, score conservatively (warm) pending more information
+- If the same email appears in multiple GHL records, flag as duplicate — do not score both
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

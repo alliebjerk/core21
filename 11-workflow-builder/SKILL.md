@@ -1,34 +1,42 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Workflow Builder — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Workflow Builder guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: On-demand -->
+On-demand — triggered by a Notion task tagged `needs-workflow` or a manual request from ops or Allie.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../voice.md` and `../business.md`
+2. Read `memory.md`
+3. Read the workflow request:
+   - What problem is being solved?
+   - What triggers the workflow?
+   - What's the desired outcome?
+   - Which tools are in scope?
+4. Map the current manual process if one exists
+5. Draft the workflow blueprint:
+   a. Name and purpose
+   b. Trigger (form submission, Stripe event, date, manual)
+   c. Tool responsible at each step
+   d. Data passed between steps
+   e. Human review points (mark clearly — at minimum one per workflow)
+   f. Failure state (what happens if a step fails)
+   g. Estimated setup time (rough)
+6. Flag any step requiring a tool integration that may not exist
+7. Save blueprint as `output/[YYYY-MM-DD]-workflow-[name].md`
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- Notion (workflow request task)
+- `../business.md` (tools list)
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-workflow-[name].md`
+Format: narrative description + step-by-step table: Step | Tool | Action | Human Review?
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If the request is too vague, produce a discovery questions document instead
+- Note uncertain integrations as [INTEGRATION NEEDED: confirm before building]
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

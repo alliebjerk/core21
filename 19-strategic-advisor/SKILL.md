@@ -1,34 +1,37 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Strategic Advisor — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Strategic Advisor guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: On-demand -->
+On-demand — Allie initiates with a question or decision context.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../voice.md` and `../business.md` — understand the current business context fully
+2. Read `memory.md` — check prior analyses that may be relevant
+3. Read Allie's input:
+   - The decision being considered
+   - Any context, constraints, or prior thinking
+   - Any deadline or external pressure
+4. Produce the analysis:
+   a. **Restate the decision** — one sentence, as neutrally as possible
+   b. **The case for** — best arguments, why this could work well
+   c. **The case against** — honest counterarguments, what could go wrong
+   d. **Assumptions being made** — what must be true for this to succeed
+   e. **Risks and dependencies** — what's outside Allie's control
+   f. **What information is missing** — what you'd want to know before deciding
+   g. **Recommendation** (only if Allie specifically asked)
+5. Save as `output/[YYYY-MM-DD]-strategy-[topic].md`
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+- Allie's input (question, decision, context — provided at trigger time)
+- `../business.md`
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-strategy-[topic].md`
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If the input is too vague, respond with 3 clarifying questions rather than a half-baked analysis
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.

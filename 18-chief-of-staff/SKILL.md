@@ -1,34 +1,52 @@
+<!-- EXAMPLE CONTENT: This playbook is filled in for a sample business and its tools. Replace the steps, tools, and details with your own. -->
+
 # Chief of Staff — Playbook
 
-<!-- This is the agent's step-by-step process. Fill it in for your tools and workflow. -->
-<!-- Tip: Copy this template plus the Chief of Staff guidance from your Notion workspace -->
-<!-- into a Claude conversation and say "Help me fill this in for my business." -->
-
 ## Trigger
-<!-- When does this agent run? -->
-<!-- Default: Daily at 6am -->
+Daily at 6am CT.
 
 ## Steps
-<!-- What does this agent do, in order? Number each step. -->
-<!-- Always start with: -->
-<!-- 1. Read ../voice.md and ../business.md -->
-<!-- 2. Read memory.md — apply recent learnings -->
-<!-- Then add the agent-specific steps for your workflow. -->
+1. Read `../voice.md` and `../business.md`
+2. Read `memory.md` — check Allie's briefing format preferences
+3. Scan the most recent output file from each active agent:
+   - `../01-content-strategist/output/` — new content calendar?
+   - `../02-copywriter/output/` — drafts ready for review?
+   - `../03-social-manager/output/` — queue log or weekly report?
+   - `../04-seo-researcher/output/` — new SEO report?
+   - `../05-lead-qualifier/output/` — hot leads?
+   - `../06-proposal-writer/output/` — proposals ready for review?
+   - `../07-objection-handler/output/` — follow-up drafts?
+   - `../08-pipeline-tracker/output/` — pipeline flags?
+   - `../09-project-manager/output/` — overdue tasks?
+   - `../10-sop-writer/output/` — drafts ready for review?
+   - `../11-workflow-builder/output/` — blueprints ready for review?
+   - `../12-onboarding-specialist/output/` — onboarding drafts?
+   - `../13-support-agent/output/` — flagged support issues?
+   - `../14-retention-analyst/output/` — at-risk members?
+   - `../15-bookkeeper/output/` — reconciliation flags?
+   - `../16-budget-forecast/output/` — monthly report (1st of month)?
+   - `../17-cash-flow-watcher/output/` — cash flow alerts?
+   - `../19-strategic-advisor/output/` — memos ready for review?
+   - `../20-board-researcher/output/` — research reports?
+   - `../21-decision-coach/output/` — decision frameworks?
+4. Compile the briefing:
+   - 🔴 **Needs your decision today** (anything flagged for Allie's direct action)
+   - 🟡 **Flags and alerts** (anything urgent from any agent)
+   - ✅ **On track** (brief confirmation of things running as expected)
+   - 📝 **Ready for review** (drafts waiting for Allie's eye)
+5. Save as `output/[YYYY-MM-DD]-briefing.md`
+6. Post to Slack (Allie's DM or #chief-of-staff channel)
 
 ## Input
-<!-- Where does this agent get its data? -->
-<!-- Example: Reads briefs from its own folder, checks other agents' output/ folders -->
+All other agents' output folders (most recent file from each).
 
 ## Output
-<!-- Where does this agent put its finished work? -->
-<!-- Always: output/ folder in this agent's directory -->
-<!-- Name files with dates: output/[YYYY-MM-DD]-description.md -->
+`output/[YYYY-MM-DD]-briefing.md` + Slack message.
 
 ## Error Handling
-<!-- What should the agent do when something goes wrong? -->
-<!-- Example: If data is missing, save a "needs input" note instead of guessing. -->
+- If an agent's output folder is empty, write "No recent output" for that agent — do not omit the section
+- If a critical flag is found (cash flow alert, urgent support issue), post an immediate Slack alert — don't wait for 6am
 
 ## Output Size Management
-<!-- Keep the most recent 30 days of output active. -->
-<!-- Move older files to output/archive/. -->
-<!-- Other agents only read the active output/ folder. -->
+Keep the most recent 30 days of output active.
+Move older files to `output/archive/`.
